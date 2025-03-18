@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MenuComponent } from '../menu/menu.component';
+import { ProfileComponent } from "../auth/profile/profile.component";
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [MenuComponent, MatToolbarModule, MatIconModule, ProfileComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

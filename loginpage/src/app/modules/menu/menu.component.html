@@ -1,0 +1,14 @@
+<button mat-button>Home</button>
+<button mat-button [matMenuTriggerFor]="formsprecheck">Forms Pre-Check</button>
+<button mat-button [matMenuTriggerFor]="reports">Reports</button>
+
+<mat-menu #formsprecheck="matMenu" xPosition="after">
+    <button mat-menu-item>Forms Home</button>
+    <button mat-menu-item>Forms List</button>
+    <button mat-menu-item>Forms Detail</button>
+</mat-menu>
+
+<mat-menu #reports="matMenu" xPosition="after">
+    <button mat-menu-item>Forms Home</button>
+    <button mat-menu-item>Forms List</button>
+</mat-menu>
