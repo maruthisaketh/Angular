@@ -1,24 +1,39 @@
 <div class="login-container">
-  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="goToHome($event)">
+    <h2>Login</h2>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Email</mat-label>
-    <input matInput type="email" placeholder="Enter your email">
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" placeholder="Enter your email" formControlName="email"
+        [ngClass]="{'ng-invalid': submitted && loginForm.get('email')?.invalid}">
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Password</mat-label>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Enter your password">
-    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
-      <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-    </button>
-  </mat-form-field>
 
-  <div class="options">
-    <a href="#" class="forgot-password">Forgot Password?</a>
-  </div>
+      <mat-error *ngIf="submitted && loginForm.get('email')?.invalid">
+        <small *ngIf="loginForm.get('email')?.errors?.['required']">Please enter an email</small>
+        <small *ngIf="loginForm.get('email')?.errors?.['pattern']">Please enter a valid email</small>
+      </mat-error>
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" class="login-button" (click)="goToHome()">LOGIN</button>
 
-  <p class="signup-text">Don't have an account? <a href="#">Sign up</a></p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Enter your password"
+        formControlName="password" [ngClass]="{'ng-invalid': loginForm.get('password')?.invalid}">
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+
+      <mat-error *ngIf="submitted && !loginForm.get('email')?.invalid && loginForm.get('password')?.invalid">
+        <small *ngIf="loginForm.get('password')?.errors?.['required']">Please enter a password.</small>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="options">
+      <a href="#" class="forgot-password">Forgot Password?</a>
+    </div>
+
+    <button mat-raised-button color="primary" class="login-button" type="submit">LOGIN</button>
+
+    <p class="signup-text">Don't have an account? <a href="#">Sign up</a></p>
+  </form>
 </div>
