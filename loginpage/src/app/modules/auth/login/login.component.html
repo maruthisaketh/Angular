@@ -2,9 +2,13 @@
   <form [formGroup]="loginForm" (ngSubmit)="goToHome($event)">
     <h2>Login</h2>
 
+    <mat-error *ngIf="submitted && loginfailed">
+      <small>Incorrect email or password.</small>
+    </mat-error>
+
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Email</mat-label>
-      <input matInput type="email" placeholder="Enter your email" formControlName="email"
+      <input matInput type="email" placeholder="test@example.com" formControlName="email"
         [ngClass]="{'ng-invalid': submitted && loginForm.get('email')?.invalid}">
 
 

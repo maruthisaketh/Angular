@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +15,12 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
-  constructor(private router: Router) { }
 
+export class LoginComponent {
   hidePassword = true;
   submitted = false;
+  loginfailed = false;
+  errorMessage: string = '';
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [
@@ -30,18 +33,46 @@ export class LoginComponent {
     ])
   });
 
-  goToHome(event: Event) {
+  constructor(private authService: AuthService, private session: SessionStorageService, private router: Router) { }
+
+  async goToHome(event: Event) {
     event.preventDefault();
     this.submitted = true;
 
-    if(this.loginForm.valid) {
-      this.router.navigate(['Home']);
-      
-    } 
-    else {
-      this.loginForm.markAllAsTouched();
+    //Form Validation
+    if (this.loginForm.valid) {
+      const userEmail = this.loginForm.value.email;
+      const userPassword = this.loginForm.value.password;
+
+      //Check if user is authenticated
+      try {
+        const response = await this.authService.login(userEmail, userPassword);
+
+        if (response) {
+          this.session.setEmail(userEmail);
+          this.router.navigate(['home']);
+        }
+        else {
+          this.loginfailed = true;
+        }
+
+      }
+      catch (error) {
+        this.errorMessage = "Error while Authenticating";
+      }
+
     }
-    
-    
+
+    //Form Validation
+    else {
+      const emailField = this.loginForm.get('email');
+      const passwordField = this.loginForm.get('password');
+      if(emailField?.valid) {
+        emailField.markAsTouched();
+      }
+      else if(passwordField?.valid) {
+        passwordField.markAsTouched();
+      }
+    }
   }
 }
