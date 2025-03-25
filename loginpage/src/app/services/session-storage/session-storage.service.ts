@@ -5,35 +5,36 @@ import { Injectable } from '@angular/core';
 })
 export class SessionStorageService {
 
-  private userEmail = '';
-  private token = '';
+  private username = 'username';
+  private userToken = 'userToken';
 
   constructor() { }
 
-  setEmail(email: string) {
-    sessionStorage.setItem(this.userEmail, email);
+  setUsername(email: string) {
+    sessionStorage.setItem(this.username, email);
   }
 
-  getEmail(): string | null {
-    return sessionStorage.getItem(this.userEmail);
+  getUsername(): string | null {
+    return sessionStorage.getItem(this.username);
   }
 
-  clearEmail() {
-    sessionStorage.removeItem(this.userEmail);
+  clearUsername() {
+    sessionStorage.removeItem(this.username);
   }
 
   setToken(token: string) {
-    sessionStorage.setItem(this.token, token);
+    sessionStorage.setItem(this.userToken, token);
   }
 
   getToken(): string | null {
-    if(this.token === '') {
+    if(this.userToken === '') {
       return null;
     }
-    return sessionStorage.getItem(this.token);
+    
+    return sessionStorage.getItem(this.userToken);
   }
 
   clearToken() {
-    sessionStorage.removeItem(this.token);
+    sessionStorage.removeItem(this.userToken);
   }
 }

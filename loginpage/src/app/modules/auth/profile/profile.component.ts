@@ -4,6 +4,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,16 +13,14 @@ import { SessionStorageService } from '../../../services/session-storage/session
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  constructor(private session: SessionStorageService, private router: Router) {}
+  constructor(private authService: AuthService, private session: SessionStorageService) {}
   username: string | null = '';
 
   ngOnInit() {
-    this.username = this.session.getEmail();
+    this.username = this.session.getUsername();
   }
 
   logout() {
-    this.session.clearEmail();
-    this.session.clearToken();
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }
