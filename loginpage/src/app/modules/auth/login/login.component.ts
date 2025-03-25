@@ -49,7 +49,6 @@ export class LoginComponent {
         const response = await this.authService.login(userEmail, userPassword);
 
         if (response) {
-          this.session.setEmail(userEmail);
           this.router.navigate(['home']);
         }
         else {

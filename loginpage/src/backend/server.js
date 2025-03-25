@@ -13,9 +13,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/get-users', (req, res) => {
-
-    users = authController.login(req, res);
-    res.send(users);
+    authResponse = authController.login(req, res);
+    res.send(authResponse);
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
