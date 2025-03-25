@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MenuComponent } from '../menu/menu.component';
-import { ProfileComponent } from "../auth/profile/profile.component";
+import { ProfileComponent } from '../../auth/profile/profile.component';
 
 @Component({
   selector: 'app-header',
