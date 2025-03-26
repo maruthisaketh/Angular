@@ -18,13 +18,12 @@ export class AuthService {
       const response = await axios.post(this.apiUrl, { email, password });
 
       if (!response.data.success) {
-        console.log("Login Failed:", response.data.error);
-        return null;
+        return {success: response.data.success, error: response.data.error};
       }
 
       this.session.setToken(response.data.token);
       this.session.setUsername(response.data.username);
-      return response.data;
+      return {success: response.data.success};
     }
     catch (error) {
       throw new Error("API Call error");

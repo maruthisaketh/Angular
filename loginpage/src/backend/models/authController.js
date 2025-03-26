@@ -11,11 +11,13 @@ exports.login = (req, res) => {
     const user = users.find(u => u.email === email && u.password === password);
 
     if (!user) {
-        return res.json({ success: false, error: "Email or Password incorrect." });
+        res.json({ success: false, error: "Incorrect email or password" });
     }
 
-    const token = jwt.sign({ email: user.email, name: user.username }, SECRET_KEY, { expiresIn: "1h" });
-    const username = user.username;
-    
-    res.json({ success: true, message: "Login successful", token, username });
+    else {
+        const token = jwt.sign({ email: user.email, name: user.username }, SECRET_KEY, { expiresIn: "1h" });
+        const username = user.username;
+
+        res.json({ success: true, message: "Login successful", token, username });
+    }
 };
