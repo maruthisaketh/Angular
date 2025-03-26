@@ -3,11 +3,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +17,13 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 
 export class LoginComponent {
-  hidePassword = true;
-  submitted = false;
-  loginfailed = false;
-  errorMessage: string = '';
+
+  //Variables for the loginform
+  hidePassword: boolean = true;
+  submitted: boolean = false;
+  loginfailed:boolean = false;
+  errorMessage: string = "";
+  passwordMatcher = new CustomErrorStateMatcher();
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [
@@ -33,7 +36,7 @@ export class LoginComponent {
     ])
   });
 
-  constructor(private authService: AuthService, private session: SessionStorageService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   async goToHome(event: Event) {
     event.preventDefault();
@@ -48,11 +51,12 @@ export class LoginComponent {
       try {
         const response = await this.authService.login(userEmail, userPassword);
 
-        if (response) {
+        if (response.success) {
           this.router.navigate(['home']);
         }
         else {
           this.loginfailed = true;
+          this.errorMessage = response.error
         }
 
       }
@@ -64,14 +68,17 @@ export class LoginComponent {
 
     //Form Validation
     else {
-      const emailField = this.loginForm.get('email');
-      const passwordField = this.loginForm.get('password');
-      if(emailField?.valid) {
-        emailField.markAsTouched();
-      }
-      else if(passwordField?.valid) {
-        passwordField.markAsTouched();
-      }
+      
     }
+  }
+}
+
+class CustomErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    if (!control || !form) return false;
+
+    const emailControl = form.form.get('email');
+
+    return !!(control && control.invalid && (control.dirty || control.touched || form.submitted) && emailControl?.valid);
   }
 }
