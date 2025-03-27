@@ -17,7 +17,7 @@ export class ProfileComponent {
   username: string | null = '';
 
   ngOnInit() {
-    this.username = this.session.getUsername();
+    
   }
 
   logout() {

@@ -1,12 +1,22 @@
 <button mat-button>Home</button>
-<button mat-button [matMenuTriggerFor]="formsprecheck">Forms Pre-Check</button>
-<button mat-button [matMenuTriggerFor]="reports">Reports</button>
+
+<button mat-button 
+        [matMenuTriggerFor]="formsprecheck">Forms Pre-Check</button>
+
+<!--button mat-button 
+        [matMenuTriggerFor]="isLoggedin ? formsprecheck : null"
+        (click)="showTooltip($event, 'Login to see the menu')"
+        matTooltip="Login to see the menu"
+        [matTooltipDisabled]="isLoggedin">Forms Pre-Check</button-->
 
 <mat-menu #formsprecheck="matMenu" xPosition="after">
     <button mat-menu-item>Forms Home</button>
     <button mat-menu-item>Forms List</button>
     <button mat-menu-item>Forms Detail</button>
 </mat-menu>
+
+<button mat-button 
+        [matMenuTriggerFor]="reports">Reports</button>
 
 <mat-menu #reports="matMenu" xPosition="after">
     <button mat-menu-item>Forms Home</button>
