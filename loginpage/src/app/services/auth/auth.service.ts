@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { SessionStorageService } from '../session-storage/session-storage.service';
-import axios from "axios";
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import axios from "axios";
+import { jwtDecode } from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +25,7 @@ export class AuthService {
       }
 
       this.session.setToken(response.data.token);
-      this.session.setUsername(response.data.username);
+      
       return {success: response.data.success};
     }
     catch (error) {
@@ -36,9 +39,24 @@ export class AuthService {
   }
 
   logout() {
-    this.session.clearUsername();
     this.session.clearToken();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/aboutus']);
   }
+
+  decodeToken(token: string): any {
+    try {
+      return jwtDecode(token);
+    }
+    catch (error) {
+      console.error("Invalid JWT Token", error);
+      return null;
+    }
+  }
+
+  isTokenExpired(token: string): boolean {
+    const decoded: any = jwtDecode(token);
+    return decoded.exp * 1000 < Date.now();
+  }
+  
 
 }
