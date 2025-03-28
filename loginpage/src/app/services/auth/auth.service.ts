@@ -25,6 +25,7 @@ export class AuthService {
       }
 
       this.session.setToken(response.data.token);
+      console.log(response.data.token);
       
       return {success: response.data.success};
     }
@@ -35,6 +36,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = this.session.getToken();
+    console.log(!!token);
     return !!token;
   }
 
@@ -56,6 +58,17 @@ export class AuthService {
   isTokenExpired(token: string): boolean {
     const decoded: any = jwtDecode(token);
     return decoded.exp * 1000 < Date.now();
+  }
+
+  getUsername() {
+    const token = this.session.getToken();
+    if(token) {
+      const user = this.decodeToken(token);
+      console.log(user);
+      return user.name;
+    } else {
+      return null;
+    }
   }
   
 

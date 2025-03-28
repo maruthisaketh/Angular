@@ -14,3 +14,10 @@
     text-align: left;
     word-wrap: break-word; 
   }
+
+  mat-grid-tile {
+    display: flex !important; /* Ensures flex behavior */
+    justify-content: stretch; /* Stretches content */
+    align-items: stretch; /* Ensures full height */
+  }
+  
