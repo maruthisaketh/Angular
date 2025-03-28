@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -23,6 +23,7 @@ export class LoginComponent {
   submitted: boolean = false;
   loginfailed:boolean = false;
   errorMessage: string = "";
+  loginClass: string = "login-container-center";
   passwordMatcher = new CustomErrorStateMatcher();
 
   loginForm: FormGroup = new FormGroup({
@@ -37,6 +38,22 @@ export class LoginComponent {
   });
 
   constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.setLoginClass();
+    this.router.events.subscribe(() => this.setLoginClass());
+  }
+
+  setLoginClass() {
+    const currentRoute = this.router.url;
+
+    if(currentRoute === '/aboutus') {
+      this.loginClass = "login-container-right-grid";
+    }
+    else {
+      this.loginClass = "login-container-center";
+    }
+  }
 
   async goToHome(event: Event) {
     event.preventDefault();

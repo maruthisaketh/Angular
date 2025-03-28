@@ -4,7 +4,7 @@
         <div class="line"></div>
         <app-menu></app-menu>
         <span class="spacer"></span>
-        <app-profile></app-profile>
+        <app-profile *ngIf="isLoggedIn"></app-profile>
     </mat-toolbar-row>
 </mat-toolbar>
 

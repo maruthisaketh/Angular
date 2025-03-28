@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
@@ -13,11 +11,11 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  constructor(private authService: AuthService, private session: SessionStorageService) {}
+  constructor(private authService: AuthService) {}
   username: string | null = '';
 
   ngOnInit() {
-    
+    this.username = this.authService.getUsername();
   }
 
   logout() {
