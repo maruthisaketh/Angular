@@ -14,10 +14,19 @@
     text-align: left;
     word-wrap: break-word; 
   }
+  
+  
+  ::ng-deep .login-tile .mat-grid-tile-content {
+    justify-content: flex-end !important; /* Move content to the right */
+    align-items: flex-start !important;  /* Move content to the top */
+    padding: 10px !important; /* Optional spacing for better placement */
+    margin-right: 5%;
+  }
 
-  mat-grid-tile {
-    display: flex !important; /* Ensures flex behavior */
-    justify-content: stretch; /* Stretches content */
-    align-items: stretch; /* Ensures full height */
+  ::ng-deep .content-tile .mat-grid-tile-content {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    padding-left: 1.5rem;
+    margin-top: 1rem;
   }
   
