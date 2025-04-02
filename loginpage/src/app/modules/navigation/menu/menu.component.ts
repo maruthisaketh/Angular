@@ -13,17 +13,4 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class MenuComponent {
 
-  isLoggedin = true;
-
-  constructor (private authService: AuthService) {
-    this.isLoggedin = authService.isAuthenticated();
-  }
-
-  showTooltip(event: Event, message: string) {
-    if (!this.isLoggedin) {
-      const target = event.currentTarget as HTMLElement;
-      target.dispatchEvent(new Event('mouseenter'));
-    }
-  }
-
 }

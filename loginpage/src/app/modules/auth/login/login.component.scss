@@ -137,5 +137,75 @@
     color: red;
     font-size: 10px; /* Smaller */
   }
+
+  mat-form-field.full-width {
+    width: 100%; /* Maintain full width */
+  
+    ::ng-deep .mat-mdc-text-field-wrapper {
+      padding: 0px 6px !important; /* Reduce padding */
+      min-height: 32px !important; /* Reduce overall height */
+      display: flex;
+      align-items: center;
+    }
+  
+    ::ng-deep .mdc-text-field {
+      height: 32px !important; /* Reduce field height */
+    }
+  
+    /* Reduce input font size */
+    ::ng-deep input.mat-mdc-input-element {
+      font-size: 12px !important; /* Make text smaller */
+      height: 28px !important; /* Adjust input height */
+      padding: 2px 6px !important; /* Adjust padding */
+      box-sizing: border-box;
+    }
+  
+    /* Adjust label size and positioning */
+    ::ng-deep .mdc-floating-label {
+      font-size: 12px !important; /* Reduce label font size */
+      top: 12px !important; /* Adjust default label position */
+      transition: all 0.2s ease-in-out; /* Smooth transition */
+    }
+  
+    /* Keep label near the border when focused */
+    ::ng-deep .mdc-text-field--focused .mdc-floating-label,
+    ::ng-deep .mdc-text-field--label-floating .mdc-floating-label {
+      transform: translateY(-12px) scale(0.8) !important; /* Move label up, but not too far */
+      top: 4px !important; /* Ensure it stays near the border */
+    }
+  
+    /* Reduce height of the input box */
+    ::ng-deep .mat-mdc-form-field-infix {
+      min-height: 28px !important; /* Adjust input box height */
+      display: flex;
+      align-items: center;
+      padding-right: 30px !important; /* Space for the icon */
+    }
+  
+    /* Properly position and size the icon */
+    ::ng-deep .mat-mdc-form-field-icon-suffix,
+    ::ng-deep .mat-mdc-icon-button {
+      height: 36px !important; /* Reduce icon size */
+      width: 36px !important;
+      font-size: 24px !important; /* Reduce icon font size */
+      margin-right: -4px !important; /* Move icon slightly left */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      right: 4px; /* Ensure icon does not go out */
+    }
+  }
+
+  mat-icon {
+    font-size: 16px !important; /* Reduce icon size */
+    width: 20px !important;
+    height: 20px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
 }
 

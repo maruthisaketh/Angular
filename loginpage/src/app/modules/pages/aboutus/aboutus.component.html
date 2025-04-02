@@ -1,5 +1,5 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>
+<mat-grid-list cols="4" rowHeight="3:3">
+    <mat-grid-tile colspan="3" class="content-tile">
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
         industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
         scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
@@ -7,8 +7,8 @@
         Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
         Aldus PageMaker including versions of Lorem Ipsum.</p>
     </mat-grid-tile>
-    <mat-grid-tile>
-        <app-login></app-login>
+    <mat-grid-tile class="login-tile">
+        <app-login *ngIf="!username"></app-login>
     </mat-grid-tile>
   </mat-grid-list>
   

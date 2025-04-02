@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../services/auth/auth.service';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,14 +11,18 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private userService: UserService) {}
   username: string | null = '';
 
   ngOnInit() {
-    this.username = this.authService.getUsername();
+    if(this.userService.getUsername()) 
+      this.userService.user$.subscribe(user => {
+        this.username = user;
+        console.log(user);
+      });
   }
 
   logout() {
-    this.authService.logout();
+    this.userService.logout();
   }
 }
