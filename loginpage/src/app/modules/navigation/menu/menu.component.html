@@ -1,24 +1,32 @@
-<button mat-button>Home</button>
+<a mat-button routerLink="dashboard">Home</a>
 
-<button mat-button 
-        [matMenuTriggerFor]="formsprecheck">Forms Pre-Check</button>
+<!--a mat-button [matMenuTriggerFor]="auth">Auth</a>
 
-<!--button mat-button 
-        [matMenuTriggerFor]="isLoggedin ? formsprecheck : null"
-        (click)="showTooltip($event, 'Login to see the menu')"
-        matTooltip="Login to see the menu"
-        [matTooltipDisabled]="isLoggedin">Forms Pre-Check</button-->
+< <button mat-button routerLink="/home"[matMenuTriggerFor]="home">Home</button> >
+<mat-menu #auth="matMenu">
+    <button mat-menu-item routerLink="/auth/login">login</button>
+    <button mat-menu-item routerLink="/auth/logout">logout</button>
+</mat-menu-->
 
-<mat-menu #formsprecheck="matMenu" xPosition="after">
-    <button mat-menu-item>Forms Home</button>
-    <button mat-menu-item>Forms List</button>
-    <button mat-menu-item>Forms Detail</button>
+<button mat-button [matMenuTriggerFor]="forms">Forms Pre-Check</button>
+
+<mat-menu #forms="matMenu">
+    <button mat-menu-item routerLink="app/forms/pre-check/home">Forms Home</button>
+    <button mat-menu-item routerLink="app/forms/pre-check/list">Forms List</button>
+    <button mat-menu-item routerLink="app/forms/pre-check/detail">Forms Detail</button>
 </mat-menu>
 
-<button mat-button 
-        [matMenuTriggerFor]="reports">Reports</button>
+<!--button mat-button [matMenuTriggerFor]="admin">Admin</button>
 
-<mat-menu #reports="matMenu" xPosition="after">
-    <button mat-menu-item>Forms Home</button>
-    <button mat-menu-item>Forms List</button>
+<mat-menu #admin="matMenu">
+    <button mat-menu-item routerLink="app/admin/settings">Settings</button>
+    <button mat-menu-item routerLink="app/admin/admin">Admin</button>
+</mat-menu-->
+
+
+<a mat-button mat-button [matMenuTriggerFor]="reports">Reports</a>
+
+<mat-menu #reports="matMenu">
+    <button mat-menu-item routerLink="app/reports/report1">Report 1</button>
+    <button mat-menu-item routerLink="app/reports/report2">Report 2</button>
 </mat-menu>

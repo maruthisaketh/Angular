@@ -1,5 +1,5 @@
-<div style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-  <span *ngIf="username">{{ username }}</span>
+<div *ngIf="username" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+  <span>{{ username }}</span>
   <mat-icon mat-icon-button [matMenuTriggerFor]="profile">account_circle</mat-icon>
 </div>
 
@@ -8,3 +8,4 @@
   <button mat-menu-item>Settings</button>
   <button mat-menu-item (click)="logout()">Logout</button>
 </mat-menu>
+ 

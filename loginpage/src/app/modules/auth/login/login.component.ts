@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent {
   //Variables for the loginform
   hidePassword: boolean = true;
   submitted: boolean = false;
-  loginfailed:boolean = false;
+  loginfailed: boolean = false;
   errorMessage: string = "";
   loginClass: string = "login-container-center";
   passwordMatcher = new CustomErrorStateMatcher();
@@ -37,6 +38,9 @@ export class LoginComponent {
     ])
   });
 
+  private userService = inject(UserService);
+
+
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -47,7 +51,7 @@ export class LoginComponent {
   setLoginClass() {
     const currentRoute = this.router.url;
 
-    if(currentRoute === '/aboutus') {
+    if (currentRoute === '/aboutus') {
       this.loginClass = "login-container-right-grid";
     }
     else {
@@ -68,14 +72,13 @@ export class LoginComponent {
       try {
         const response = await this.authService.login(userEmail, userPassword);
 
-        if (response.success) {
+        if (response.success && this.userService.getUsername()) {
           this.router.navigate(['home']);
         }
         else {
           this.loginfailed = true;
-          this.errorMessage = response.error
+          this.errorMessage = response.error;
         }
-
       }
       catch (error) {
         this.errorMessage = "Error while Authenticating";
@@ -85,11 +88,12 @@ export class LoginComponent {
 
     //Form Validation
     else {
-      
+      console.error("Failed to Validate the User");
     }
   }
 }
 
+// Custom error display for password field
 class CustomErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
     if (!control || !form) return false;

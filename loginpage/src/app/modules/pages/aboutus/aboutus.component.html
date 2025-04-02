@@ -8,7 +8,7 @@
         Aldus PageMaker including versions of Lorem Ipsum.</p>
     </mat-grid-tile>
     <mat-grid-tile class="login-tile">
-        <app-login></app-login>
+        <app-login *ngIf="!username"></app-login>
     </mat-grid-tile>
   </mat-grid-list>
   

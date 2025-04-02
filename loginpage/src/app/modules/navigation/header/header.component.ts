@@ -4,7 +4,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../menu/menu.component';
 import { ProfileComponent } from '../profile/profile.component';
-import { AuthService } from '../../../services/auth/auth.service';
+import { UserService } from '../../../services/user/user.service';
+
 
 @Component({
   selector: 'app-header',
@@ -15,9 +16,9 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class HeaderComponent {
   isLoggedIn = false;
 
-  constructor (private authService: AuthService) {}
+  constructor (private userService: UserService) {}
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isAuthenticated();
+    this.isLoggedIn = this.userService.getUsername();
   }
 }
